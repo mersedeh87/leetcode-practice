@@ -1,0 +1,21 @@
+#python
+__pycatche__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+.venv/
+env/
+venv/
+ENV/
+#vscode
+.vscode/
+#os junk
+.DS_Store
+Thumbs.db
+
+#logs
+logs/
+*.log
