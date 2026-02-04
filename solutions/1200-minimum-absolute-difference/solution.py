@@ -1,38 +1,23 @@
-from typing import List
+def removeDuplicateLetters(s:str)-> str:
+    last_index ={ch:i for i, ch in enumerate(s)}
+    stack =[]
+    seen =set()
+    for i ,ch in enumerate(s):
+        if ch not in seen:
+            while stack and ch < stack[-1] and i < last_index[stack[-1]]:
+                seen.remove(stack.pop())
+            stack.append(ch)
+            seen.add(ch)
+    return ''.join(stack)
 
-
-def minimum_abs_difference(arr: List[int]) -> List[List[int]]:
-    arr.sort()
-
-    min_diff = float("inf")
-    res: List[List[int]] = []
-
-    for i in range(len(arr) - 1):
-        diff = arr[i + 1] - arr[i]
-
-        if diff < min_diff:
-            min_diff = diff
-            res = [[arr[i], arr[i + 1]]]
-        elif diff == min_diff:
-            res.append([arr[i], arr[i + 1]])
-
-    return res
-
-
-def _run_tests() -> None:
-    tests = [
-        ([4, 2, 1, 3], [[1, 2], [2, 3], [3, 4]]),
-        ([1, 3, 6, 10, 15], [[1, 3]]),
-        ([3, 8, -10, 23, 19, -4, -14, 27], [[-14, -10], [19, 23], [23, 27]]),
+def _run_tests():
+    test_cases = [
+        ("bcabc", "abc"),
+        ("cbacdcbc", "acdb"),
+        ("abacb", "abc"),
+        ("bbcaac", "bac"),
     ]
-
-    for arr, expected in tests:
-        got = minimum_abs_difference(arr)
-        if got != expected:
-            raise AssertionError(f"FAIL: arr={arr} expected={expected} got={got}")
-
-    print("All tests passed ✅")
-
-
-if __name__ == "__main__":
-    _run_tests()
+    for s, expected in test_cases:
+        result = removeDuplicateLetters(s)
+        assert result == expected, f"Test failed for input {s}: expected {expected}, got {result}"
+    print("All tests passed.")
